@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  default:
+    desc: "Runs a cell locally"
+    cmd: cd services/cell_{{.CLI_ARGS}} && go run cmd/api/main.go
