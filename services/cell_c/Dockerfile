@@ -9,7 +9,7 @@ COPY services/cell_c/ ./services/cell_c/
 
 WORKDIR /app/services/cell_c
 
-RUN go mod edit -replace zygarde/lib=../lib -require zygarde/lib@v0.0.0 \
+RUN go mod edit -replace zygarde/lib=../../lib -require zygarde/lib@v0.0.0 \
     && go mod tidy && go mod verify
 
 RUN CGO_ENABLED=0 go build \
