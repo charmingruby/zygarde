@@ -10,6 +10,8 @@ jobs:
   release-image:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
+      max-parallel: 3
       matrix:
         environment: ["a", "b", "c"]
     steps:
@@ -38,7 +40,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./services/cell_${{ matrix.environment }}
+          context: .
           file: services/cell_${{ matrix.environment }}/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64

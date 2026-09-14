@@ -4,10 +4,15 @@ FROM golang:${GO_VERSION}-bookworm AS builder
 
 WORKDIR /app
 
-COPY go.mod go.sum ./
-RUN go mod download && go mod verify
+COPY lib/ ./lib/
+COPY services/cell_b/go.mod services/cell_b/go.sum ./services/cell_b/
 
-COPY . .
+WORKDIR /app/services/cell_b
+
+RUN go mod edit -replace zygarde/lib=../lib \
+    && go mod download && go mod verify
+
+COPY services/cell_b/ ./
 
 RUN CGO_ENABLED=0 go build \
     -trimpath \
