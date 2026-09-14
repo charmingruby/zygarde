@@ -9,9 +9,6 @@ env:
 jobs:
   release-image:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./services
     strategy:
       matrix:
         environment: ["a", "b", "c"]
@@ -41,8 +38,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ./services
-          file: cell_${{ matrix.environment }}/Dockerfile
+          file: services/cell_${{ matrix.environment }}/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.generate_tag.outputs.tags }}
