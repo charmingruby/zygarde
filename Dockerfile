@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-WORKDIR /app/cell
+WORKDIR /app
 
 RUN go mod tidy
 
