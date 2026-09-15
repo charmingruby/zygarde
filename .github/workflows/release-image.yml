@@ -3,9 +3,6 @@ on:
   push:
     branches: [main]
 
-env:
-  IMAGE_NAME: charmingruby/hatch
-
 jobs:
   release-image:
     runs-on: ubuntu-latest
@@ -34,7 +31,7 @@ jobs:
         id: generate_tag
         run: |
           SHA=$(echo $GITHUB_SHA | head -c7)
-          TAGS="${IMAGE_NAME}:cell_${{ matrix.environment }}-latest,${IMAGE_NAME}:cell_${{ matrix.environment }}-${SHA}"
+          TAGS="cell-${{ matrix.environment }}:latest,cell-${{ matrix.environment }}:${SHA}"
           echo "tags=${TAGS}" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image
@@ -45,5 +42,5 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.generate_tag.outputs.tags }}
-          cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:cell_${{ matrix.environment }}-buildcache
-          cache-to: type=registry,ref=${{ env.IMAGE_NAME }}:cell_${{ matrix.environment }}-buildcache,mode=max
+          cache-from: type=registry,ref=cell-${{ matrix.environment }}:buildcache
+          cache-to: type=registry,ref=cell-${{ matrix.environment }}:buildcache,mode=max
