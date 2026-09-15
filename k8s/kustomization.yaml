@@ -1,4 +1,4 @@
+# yaml-language-server: $schema=none
 resources:
-  - overlays/cell-a
-  - overlays/cell-b
-  - overlays/cell-c
+  - namespace.yaml
+  - apps

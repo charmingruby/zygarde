@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=none
+namespace: apps
+
+resources:
+  - overlays/cell-a
+  - overlays/cell-b
+  - overlays/cell-c
