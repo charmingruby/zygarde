@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cell-a-api
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app: cell-a
+      kind: api
+  template:
+    metadata:
+      labels:
+        app: cell-a
+        kind: api
+    spec:
+      containers:
+        - name: cell-a-api
+          image: charmingruby/cell-a:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              cpu: 200m
+              memory: 128Mi
+            limits:
+              cpu: 400m
+              memory: 256Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cell-b-api
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app: cell-b
+      kind: api
+  template:
+    metadata:
+      labels:
+        app: cell-b
+        kind: api
+    spec:
+      containers:
+        - name: cell-b-api
+          image: charmingruby/cell-b:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              cpu: 200m
+              memory: 128Mi
+            limits:
+              cpu: 400m
+              memory: 256Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cell-c-api
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 20%
+      maxUnavailable: 10%
+  selector:
+    matchLabels:
+      app: cell-c
+      kind: api
+  template:
+    metadata:
+      labels:
+        app: cell-c
+        kind: api
+    spec:
+      containers:
+        - name: cell-c-api
+          image: charmingruby/cell-c:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            requests:
+              cpu: 200m
+              memory: 128Mi
+            limits:
+              cpu: 400m
+              memory: 256Mi
