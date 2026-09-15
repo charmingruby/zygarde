@@ -1,8 +1,0 @@
-go 1.27.0
-
-use (
-	./lib
-	./services/cell_a
-	./services/cell_b
-	./services/cell_c
-)

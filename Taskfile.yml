@@ -9,6 +9,3 @@ tasks:
   delete-cluster:
     desc: "Delete Kind cluster"
     cmd: kind delete cluster --name {{.CLI_ARGS}}
-  run-cell:
-    desc: "Runs a cell locally"
-    cmd: cd services/cell_{{.CLI_ARGS}} && go run cmd/api/main.go
