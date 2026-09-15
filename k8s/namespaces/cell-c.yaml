@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=none
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cell-c
+  labels:
+    name: cell-c

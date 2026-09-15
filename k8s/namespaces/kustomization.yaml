@@ -1,0 +1,4 @@
+resources:
+  - cell-a.yaml
+  - cell-b.yaml
+  - cell-c.yaml

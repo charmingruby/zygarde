@@ -1,4 +1,5 @@
 # yaml-language-server: $schema=none
+namespace: cell-a
 namePrefix: cell-a-
 labels:
   - pairs:
