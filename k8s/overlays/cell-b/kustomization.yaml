@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=none
+namePrefix: cell-b-
+labels:
+  - pairs:
+      app: cell-b
+
+resources:
+  - ../../base
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+  - name: config
+    literals:
+      - PORT=4000
+      - CELL_ID=b
