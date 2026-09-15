@@ -5,7 +5,7 @@ version: "3"
 tasks:
   create-cluster:
     desc: "Creates a Kind cluster from config file"
-    cmd: kind create cluster --config k8s/cluster.yml --name {{.CLI_ARGS}}
+    cmd: kind create cluster --config k8s/cluster.yaml --name {{.CLI_ARGS}}
   delete-cluster:
     desc: "Delete Kind cluster"
     cmd: kind delete cluster --name {{.CLI_ARGS}}
