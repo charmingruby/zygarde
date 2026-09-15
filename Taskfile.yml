@@ -2,13 +2,24 @@
 
 version: "3"
 
+env:
+  CLUSTER_NAME: zygarde
+
 tasks:
   create-cluster:
     desc: "Creates a Kind cluster from config file"
-    cmd: kind create cluster --config k8s/cluster.yaml --name {{.CLI_ARGS}}
+    cmd: kind create cluster --config k8s/cluster.yaml --name {{.CLUSTER_NAME}}
   delete-cluster:
     desc: "Delete Kind cluster"
-    cmd: kind delete cluster --name {{.CLI_ARGS}}
+    cmd: kind delete cluster --name {{.CLUSTER_NAME}}
   apply:
     desc: "Apply kustomize root"
     cmd: kubectl apply -k k8s/
+  install-istio:
+    desc: "Installs Istio to the current cluster"
+    cmd: istioctl install -y
+  scaffold:
+    cmds:
+      - task: create-cluster
+      - task: install-istio
+      - task: apply
