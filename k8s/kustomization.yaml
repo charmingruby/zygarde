@@ -2,4 +2,4 @@
 resources:
   - namespaces
   - infra
-  - workloads
+  - apps
