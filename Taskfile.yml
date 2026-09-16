@@ -18,8 +18,13 @@ tasks:
   install-istio:
     desc: "Installs Istio to the current cluster"
     cmd: istioctl install -y
+  install-k8s-gateway-crds:
+    desc: "Installs Kubernetes Gateway CRDs"
+    cmd: kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.6.0" | kubectl apply -f -
   scaffold:
+    desc: "Scaffolds cluster, applying all needed infrastructure and manifests"
     cmds:
       - task: create-cluster
+      - task: install-k8s-gateway-crds
       - task: install-istio
       - task: apply
