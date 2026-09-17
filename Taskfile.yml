@@ -21,6 +21,9 @@ tasks:
   install-k8s-gateway-crds:
     desc: "Installs Kubernetes Gateway CRDs"
     cmd: kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.6.0" | kubectl apply -f -
+  load-test:
+    desc: "Runs a simple load test on cells to check o11y on Kiali"
+    cmd: kubectl run -it fortio -n {{.CLI_ARGS}} --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s http://{{.CLI_ARGS}}-svc/api/health-check
   scaffold:
     desc: "Scaffolds cluster, applying all needed infrastructure and manifests"
     cmds:
@@ -28,3 +31,8 @@ tasks:
       - task: install-k8s-gateway-crds
       - task: install-istio
       - task: apply
+  restart:
+    desc: "Recreates and scaffolds the cluster"
+    cmds:
+      - task: delete-cluster
+      - task: scaffold

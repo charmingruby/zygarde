@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cell-api-svc
+  name: svc
 spec:
   type: ClusterIP
   selector:

@@ -1,3 +1,4 @@
 resources:
   - prometheus
+  - jaeger
   - kiali
