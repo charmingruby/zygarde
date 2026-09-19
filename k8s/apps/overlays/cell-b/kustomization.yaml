@@ -3,13 +3,11 @@ namespace: cell-b
 namePrefix: cell-b-
 labels:
   - pairs:
-      app: cell-b
+      app.kubernetes.io/instance: cell-b
+    includeSelectors: true
 
 resources:
   - ../../base
-
-generatorOptions:
-  disableNameSuffixHash: true
 
 configMapGenerator:
   - name: config

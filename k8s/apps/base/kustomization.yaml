@@ -1,4 +1,11 @@
 # yaml-language-server: $schema=none
+labels:
+  - pairs:
+      app.kubernetes.io/name: zygarde
+      app.kubernetes.io/managed-by: kustomize
+    includeSelectors: true
+
 resources:
   - deployment.yaml
   - service.yaml
+  - virtual-service.yaml

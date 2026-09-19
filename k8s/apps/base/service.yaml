@@ -5,8 +5,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: cell
-    kind: api
+    app.kubernetes.io/name: zygarde
+    app.kubernetes.io/component: api
   ports:
     - protocol: TCP
       port: 80

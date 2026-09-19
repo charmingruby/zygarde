@@ -4,5 +4,4 @@ kind: Namespace
 metadata:
   name: cell-a
   labels:
-    name: cell-a
     istio-injection: enabled

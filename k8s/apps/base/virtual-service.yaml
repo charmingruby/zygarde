@@ -1,0 +1,25 @@
+# TODO
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: routes
+spec:
+  hosts:
+    # not generic yet
+    - cell-a-svc.cell-a.cluster.local
+    - cell-b-svc.cell-b.cluster.local
+    - cell-c-svc.cell-c.cluster.local
+  http:
+    - route:
+        - destination:
+            host: cell-a-svc.cell-a.cluster.local
+            subset: V1
+          weight: 80 # in %
+        - destination:
+            host: cell-a-svc.cell-a.cluster.local
+            subset: V2
+          weight: 20 # in %
+        - destination:
+            host: cell-b-svc.cell-b.cluster.local
+            subset: V1
+          weight: 80 # in %
