@@ -8,6 +8,8 @@ labels:
 
 resources:
   - ../../base
+  - destination-rule.yaml
+  - virtual-service.yaml
 
 configMapGenerator:
   - name: config

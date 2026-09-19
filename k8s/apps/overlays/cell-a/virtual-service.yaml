@@ -1,0 +1,14 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: vs
+  labels:
+    app.kubernetes.io/name: zygarde
+spec:
+  hosts:
+    - cell-a-svc
+  http:
+    - route:
+        - destination:
+            host: cell-a-svc
+            subset: V1

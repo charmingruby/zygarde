@@ -1,0 +1,12 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: dr
+  labels:
+    app.kubernetes.io/name: zygarde
+spec:
+  host: cell-a-svc
+  subsets:
+    - name: V1
+      labels:
+        app.kubernetes.io/instance: cell-a
