@@ -4,9 +4,7 @@ metadata:
   name: svc
 spec:
   type: ClusterIP
-  selector:
-    app.kubernetes.io/name: zygarde
-    app.kubernetes.io/component: api
+  selector: {}
   ports:
     - protocol: TCP
       port: 80

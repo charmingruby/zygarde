@@ -4,6 +4,7 @@ namePrefix: cell-b-
 labels:
   - pairs:
       app.kubernetes.io/instance: cell-b
+      app.kubernetes.io/version: V1
     includeSelectors: true
 
 resources:

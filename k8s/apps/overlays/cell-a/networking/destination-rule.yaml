@@ -1,0 +1,6 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: dr
+spec:
+  host: cell-a-svc.cell-a.svc.cluster.local

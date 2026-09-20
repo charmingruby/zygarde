@@ -3,16 +3,12 @@ namespace: cell-a
 namePrefix: cell-a-
 labels:
   - pairs:
+      app.kubernetes.io/name: zygarde
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/component: api
       app.kubernetes.io/instance: cell-a
       app.kubernetes.io/version: V1
-    includeSelectors: true
 
 resources:
-  - ../../base
-  - networking
-
-configMapGenerator:
-  - name: config
-    literals:
-      - PORT=4000
-      - CELL_ID=a
+  - destination-rule.yaml
+  - virtual-service.yaml

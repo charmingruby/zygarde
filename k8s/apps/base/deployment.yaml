@@ -10,14 +10,10 @@ spec:
       maxSurge: 20%
       maxUnavailable: 10%
   selector:
-    matchLabels:
-      app.kubernetes.io/name: zygarde
-      app.kubernetes.io/component: api
+    matchLabels: {}
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: zygarde
-        app.kubernetes.io/component: api
+      labels: {}
     spec:
       containers:
         - name: api
