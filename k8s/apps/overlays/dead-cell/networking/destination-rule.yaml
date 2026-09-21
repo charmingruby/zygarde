@@ -8,7 +8,7 @@ spec:
     loadBalancer:
       simple: LEAST_CONN
     outlierDetection:
-      consecutiveGatewayErrors: 3
-      interval: 5s
+      consecutiveGatewayErrors: 10
+      interval: 10s
       baseEjectionTime: 30s
       maxEjectionPercent: 100

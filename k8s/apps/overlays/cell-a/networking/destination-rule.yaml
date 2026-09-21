@@ -7,8 +7,3 @@ spec:
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
-    outlierDetection:
-      consecutiveGatewayErrors: 10
-      interval: 10s
-      baseEjectionTime: 30s
-      maxEjectionPercent: 100

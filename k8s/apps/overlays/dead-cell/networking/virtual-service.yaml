@@ -7,10 +7,18 @@ spec:
     - dead-cell-svc.dead-cell.svc.cluster.local
   http:
     - fault:
+        delay:
+          fixedDelay: 1s
+          percentage:
+            value: 5
         abort:
           httpStatus: 503
           percentage:
-            value: 80
+            value: 10
       route:
         - destination:
             host: dead-cell-svc.dead-cell.svc.cluster.local
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+      timeout: 0.2s
