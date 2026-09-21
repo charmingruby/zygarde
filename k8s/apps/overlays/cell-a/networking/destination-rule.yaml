@@ -4,3 +4,6 @@ metadata:
   name: dr
 spec:
   host: cell-a-svc.cell-a.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN
