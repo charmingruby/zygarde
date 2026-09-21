@@ -15,7 +15,7 @@ type Server struct {
 	http.Server
 }
 
-func NewServer(port string, validator *validator.Validator) (*Server, chi.Router) {
+func NewServer(port string, validator *validator.Validator, isAvailable bool) (*Server, chi.Router) {
 	addr := ":" + port
 
 	r := chi.NewRouter()
@@ -26,7 +26,7 @@ func NewServer(port string, validator *validator.Validator) (*Server, chi.Router
 		apiRouter = router
 	})
 
-	registerProbes(apiRouter)
+	registerProbes(apiRouter, isAvailable)
 
 	return &Server{
 		Server: http.Server{
@@ -51,8 +51,13 @@ func (s *Server) Close(ctx context.Context) error {
 	return s.Shutdown(ctx)
 }
 
-func registerProbes(r chi.Router) {
+func registerProbes(r chi.Router, isAvailable bool) {
 	r.Get("/health-check", func(w http.ResponseWriter, r *http.Request) {
+		if !isAvailable {
+			WriteServiceUnavailableByManualInjection(w)
+			return
+		}
+
 		w.WriteHeader(http.StatusOK)
 	})
 }

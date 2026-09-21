@@ -43,14 +43,19 @@ func run() error {
 	}
 
 	val := validator.New()
-	srv, router := httpx.NewServer(cfg.Port, val)
+	srv, router := httpx.NewServer(cfg.Port, val, cfg.IsAvailable)
 
-	internal.AddRoutes(router, cfg.ID)
+	internal.AddRoutes(router, cfg.ID, cfg.IsAvailable)
 
 	shutdownErrCh := make(chan error, 1)
 	go shutdown(ctx, log, shutdownErrCh, srv)
 
 	log.Info("server: running...", "port", cfg.Port)
+
+	if !cfg.IsAvailable {
+		log.Info("server: manual failure injection detected")
+	}
+
 	if err := srv.Start(); err != nil {
 		log.Error("server: start error", "error", err)
 

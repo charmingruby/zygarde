@@ -17,6 +17,12 @@ func WriteCreatedResponse(w http.ResponseWriter, v any) {
 	WriteResponse(w, http.StatusCreated, v)
 }
 
+func WriteServiceUnavailableByManualInjection(w http.ResponseWriter) {
+	WriteResponse(w, http.StatusServiceUnavailable, map[string]string{
+		"reason": "failure injected manually",
+	})
+}
+
 func WriteEmptyResponse(w http.ResponseWriter) {
 	w.WriteHeader(http.StatusNoContent)
 }

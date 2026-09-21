@@ -6,8 +6,9 @@ import (
 )
 
 type Config struct {
-	Port string `env:"PORT,required"`
-	ID   string `env:"CELL_ID,required"`
+	Port        string `env:"PORT,required"`
+	ID          string `env:"CELL_ID,required"`
+	IsAvailable bool   `env:"IS_AVAILABLE,required"`
 }
 
 func Load() (*Config, error) {

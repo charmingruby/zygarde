@@ -29,11 +29,20 @@ type PongResponse struct {
 	ReceiverID string `json:"receiver_id"`
 }
 
-func AddRoutes(r chi.Router, id string) {
+func AddRoutes(r chi.Router, id string, isAvailable bool) {
 	r.Post("/ping", func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 
 		log := o11y.LoggerFromContext(ctx)
+
+		if !isAvailable {
+			log.Error("pong is not available",
+				"isAvailableVar", isAvailable,
+			)
+
+			httpx.WriteServiceUnavailableByManualInjection(w)
+			return
+		}
 
 		req, err := httpx.ParseRequest[PingRequest](w, r)
 		if err != nil {
@@ -76,6 +85,15 @@ func AddRoutes(r chi.Router, id string) {
 		ctx := r.Context()
 
 		log := o11y.LoggerFromContext(ctx)
+
+		if !isAvailable {
+			log.Error("pong is not available",
+				"isAvailableVar", isAvailable,
+			)
+
+			httpx.WriteServiceUnavailableByManualInjection(w)
+			return
+		}
 
 		req, err := httpx.ParseRequest[PongRequest](w, r)
 		if err != nil {
