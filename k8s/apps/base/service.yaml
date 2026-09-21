@@ -6,6 +6,7 @@ spec:
   type: ClusterIP
   selector: {}
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 4000

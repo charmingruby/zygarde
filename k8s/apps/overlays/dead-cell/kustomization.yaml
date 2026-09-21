@@ -1,18 +1,19 @@
 # yaml-language-server: $schema=none
-namespace: cell-b
-namePrefix: cell-b-
+namespace: dead-cell
+namePrefix: dead-cell-
 labels:
   - pairs:
-      app.kubernetes.io/instance: cell-b
+      app.kubernetes.io/instance: dead-cell
       app.kubernetes.io/version: V1
     includeSelectors: true
 
 resources:
   - ../../base
+  - networking
 
 configMapGenerator:
   - name: config
     literals:
       - PORT=4000
-      - CELL_ID=b
+      - CELL_ID=dead
       - IS_AVAILABLE=true

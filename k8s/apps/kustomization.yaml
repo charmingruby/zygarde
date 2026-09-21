@@ -3,3 +3,4 @@ resources:
   - overlays/cell-a
   - overlays/cell-b
   - overlays/cell-c
+  - overlays/dead-cell

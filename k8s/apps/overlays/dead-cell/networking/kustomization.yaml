@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=none
+namespace: dead-cell
+namePrefix: dead-cell-
+labels:
+  - pairs:
+      app.kubernetes.io/name: zygarde
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/component: api
+      app.kubernetes.io/instance: dead-cell
+      app.kubernetes.io/version: V1
+
+resources:
+  - destination-rule.yaml
+  - virtual-service.yaml

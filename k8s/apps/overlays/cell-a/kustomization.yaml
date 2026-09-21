@@ -16,3 +16,4 @@ configMapGenerator:
     literals:
       - PORT=4000
       - CELL_ID=a
+      - IS_AVAILABLE=true

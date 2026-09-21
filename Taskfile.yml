@@ -12,9 +12,25 @@ tasks:
   delete-cluster:
     desc: "Delete Kind cluster"
     cmd: kind delete cluster --name {{.CLUSTER_NAME}}
+  apply-ns:
+    desc: "Applies namespaces"
+    cmd: kubectl apply -k k8s/namespaces
+  apply-infra:
+    desc: "Applies infrastructure, waits for readiness"
+    cmds:
+      - kubectl apply -k k8s/infra
+      - kubectl wait --for=condition=available deployment/prometheus -n istio-system --timeout=120s
+      - kubectl wait --for=condition=available deployment/jaeger -n istio-system --timeout=120s
+      - kubectl wait --for=condition=available deployment/kiali -n istio-system --timeout=120s
+  apply-apps:
+    desc: "Applies application manifests"
+    cmd: kubectl apply -k k8s/apps
   apply:
     desc: "Apply kustomize root"
-    cmd: kubectl apply -k k8s/
+    cmds:
+      - task: apply-ns
+      - task: apply-infra
+      - task: apply-apps
   install-istio:
     desc: "Installs Istio to the current cluster"
     cmd: istioctl install -y

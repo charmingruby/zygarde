@@ -3,12 +3,12 @@ kind: DestinationRule
 metadata:
   name: dr
 spec:
-  host: cell-a-svc.cell-a.svc.cluster.local
+  host: dead-cell-svc.dead-cell.svc.cluster.local
   trafficPolicy:
     loadBalancer:
       simple: LEAST_CONN
     outlierDetection:
-      consecutiveGatewayErrors: 10
-      interval: 10s
+      consecutiveGatewayErrors: 3
+      interval: 5s
       baseEjectionTime: 30s
       maxEjectionPercent: 100

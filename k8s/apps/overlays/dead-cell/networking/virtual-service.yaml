@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: vs
+spec:
+  hosts:
+    - dead-cell-svc.dead-cell.svc.cluster.local
+  http:
+    - fault:
+        abort:
+          httpStatus: 503
+          percentage:
+            value: 80
+      route:
+        - destination:
+            host: dead-cell-svc.dead-cell.svc.cluster.local
