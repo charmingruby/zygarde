@@ -1,0 +1,25 @@
+apiVersion: networking.istio.io/v1
+kind: VirtualService
+metadata:
+  name: vs
+spec:
+  hosts:
+    - cell-a-v1-svc.cell-a.svc.cluster.local
+    - cell-a-v2-svc.cell-a.svc.cluster.local
+  http:
+    - name: v2-ab-test
+      match:
+        - headers:
+            ab:
+              exact: "true"
+      route:
+        - destination:
+            host: cell-a-v2-svc.cell-a.svc.cluster.local
+          weight: 30
+        - destination:
+            host: cell-a-v1-svc.cell-a.svc.cluster.local
+          weight: 70
+    - name: v1
+      route:
+        - destination:
+            host: cell-a-v1-svc.cell-a.svc.cluster.local

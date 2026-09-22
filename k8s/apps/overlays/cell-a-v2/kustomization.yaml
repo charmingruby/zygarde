@@ -1,10 +1,10 @@
 # yaml-language-server: $schema=none
-namespace: dead-cell
-namePrefix: dead-cell-
+namespace: cell-a
+namePrefix: cell-a-v2-
 labels:
   - pairs:
-      app.kubernetes.io/instance: dead-cell
-      app.kubernetes.io/version: V1
+      app.kubernetes.io/instance: cell-a
+      app.kubernetes.io/version: V2
     includeSelectors: true
 
 resources:
@@ -14,5 +14,5 @@ configMapGenerator:
   - name: config
     literals:
       - PORT=4000
-      - CELL_ID=dead
+      - CELL_ID=a2
       - IS_AVAILABLE=true

@@ -25,12 +25,16 @@ tasks:
   apply-apps:
     desc: "Applies application manifests"
     cmd: kubectl apply -k k8s/apps
+  apply-networking:
+    desc: "Applies networking manifests"
+    cmd: kubectl apply -k k8s/networking
   apply:
     desc: "Apply kustomize root"
     cmds:
       - task: apply-ns
       - task: apply-infra
       - task: apply-apps
+      - task: apply-networking
   install-istio:
     desc: "Installs Istio to the current cluster"
     cmd: istioctl install -y
@@ -39,7 +43,10 @@ tasks:
     cmd: kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.6.0" | kubectl apply -f -
   load-test:
     desc: "Runs a simple load test on cells to check o11y on Kiali"
-    cmd: kubectl run -it fortio -n {{.CLI_ARGS}} --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s http://{{.CLI_ARGS}}-svc/api/health-check
+    cmd: kubectl run -it fortio -n {{.CLI_ARGS}} --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H http://{{.CLI_ARGS}}-svc/api/health-check
+  ab-load-test:
+    desc: "Runs a simple A/B and load test on cells to check o11y on Kiali"
+    cmd: kubectl run -it fortio -n cell-a --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H  "ab:true" http://cell-a-v1-svc/api/health-check
   scaffold:
     desc: "Scaffolds cluster, applying all needed infrastructure and manifests"
     cmds:
