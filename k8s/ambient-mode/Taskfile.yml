@@ -8,26 +8,26 @@ env:
 tasks:
   create-cluster:
     desc: "Creates a Kind cluster from config file"
-    cmd: kind create cluster --config k8s/cluster.yaml --name {{.CLUSTER_NAME}}
+    cmd: kind create cluster --config cluster.yaml --name {{.CLUSTER_NAME}}
   delete-cluster:
     desc: "Delete Kind cluster"
     cmd: kind delete cluster --name {{.CLUSTER_NAME}}
   apply-ns:
     desc: "Applies namespaces"
-    cmd: kubectl apply -k k8s/namespaces
+    cmd: kubectl apply -k namespaces
   apply-infra:
     desc: "Applies infrastructure, waits for readiness"
     cmds:
-      - kubectl apply -k k8s/infra
+      - kubectl apply -k infra
       - kubectl wait --for=condition=available deployment/prometheus -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/jaeger -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/kiali -n istio-system --timeout=120s
   apply-apps:
     desc: "Applies application manifests"
-    cmd: kubectl apply -k k8s/apps
+    cmd: kubectl apply -k apps
   apply-networking:
     desc: "Applies networking manifests"
-    cmd: kubectl apply -k k8s/networking
+    cmd: kubectl apply -k networking
   apply:
     desc: "Apply kustomize root"
     cmds:
