@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=none
+namespace: cell-a
+namePrefix: cell-a-
+labels:
+  - pairs:
+      app.kubernetes.io/name: zygarde
+      app.kubernetes.io/managed-by: kustomize
+      app.kubernetes.io/component: api
+      app.kubernetes.io/instance: cell-a
+resources:
+  - v1-destination-rule.yaml
+  - v2-destination-rule.yaml
+  - virtual-service.yaml

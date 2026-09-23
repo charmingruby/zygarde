@@ -1,0 +1,11 @@
+apiVersion: networking.istio.io/v1
+kind: DestinationRule
+metadata:
+  name: v2-dr
+  labels:
+    app.kubernetes.io/version: V2
+spec:
+  host: cell-a-v2-svc.cell-a.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: LEAST_CONN

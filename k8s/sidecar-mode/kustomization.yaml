@@ -1,6 +1,0 @@
-# yaml-language-server: $schema=none
-resources:
-  - namespaces
-  - infra
-  - apps
-  - networking

@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=none
+resources:
+  - overlays/cell-a-v1
+  - overlays/cell-a-v2

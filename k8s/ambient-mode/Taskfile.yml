@@ -12,6 +12,9 @@ tasks:
   delete-cluster:
     desc: "Delete Kind cluster"
     cmd: kind delete cluster --name {{.CLUSTER_NAME}}
+  apply-ns:
+    desc: "Applies namespaces"
+    cmd: kubectl apply -k namespaces
   apply-infra:
     desc: "Applies infrastructure, waits for readiness"
     cmds:
@@ -19,16 +22,31 @@ tasks:
       - kubectl wait --for=condition=available deployment/prometheus -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/jaeger -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/kiali -n istio-system --timeout=120s
+  apply-apps:
+    desc: "Applies application manifests"
+    cmd: kubectl apply -k apps
+  apply-networking:
+    desc: "Applies networking manifests"
+    cmd: kubectl apply -k networking
   apply:
     desc: "Apply kustomize root"
     cmds:
+      - task: apply-ns
       - task: apply-infra
+      - task: apply-apps
+      - task: apply-networking
   install-istio:
     desc: "Installs Istio to the current cluster"
     cmd: istioctl install --set profile=ambient --skip-confirmation
   install-k8s-gateway-crds:
     desc: "Installs Kubernetes Gateway CRDs"
     cmd: kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.6.0" | kubectl apply -f -
+  load-test:
+    desc: "Runs a simple load test on cells to check o11y on Kiali"
+    cmd: kubectl run -it fortio -n {{.CLI_ARGS}} --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H http://{{.CLI_ARGS}}-svc/api/health-check
+  ab-load-test:
+    desc: "Runs a simple A/B and load test on cells to check o11y on Kiali"
+    cmd: kubectl run -it fortio -n cell-a --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H  "ab:true" http://cell-a-v1-svc/api/health-check
   scaffold:
     desc: "Scaffolds cluster, applying all needed infrastructure and manifests"
     cmds:

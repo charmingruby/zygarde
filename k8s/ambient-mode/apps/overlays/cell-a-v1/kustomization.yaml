@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=none
+namespace: cell-a
+namePrefix: cell-a-v1-
+labels:
+  - pairs:
+      app.kubernetes.io/instance: cell-a
+      app.kubernetes.io/version: V1
+    includeSelectors: true
+
+resources:
+  - ../../base
+
+configMapGenerator:
+  - name: config
+    literals:
+      - PORT=4000
+      - CELL_ID=a1
+      - IS_AVAILABLE=true
