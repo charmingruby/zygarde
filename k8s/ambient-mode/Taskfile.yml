@@ -47,7 +47,7 @@ tasks:
   ab-load-test:
     desc: "Runs a simple A/B and load test on cells to check o11y on Kiali"
     cmd: kubectl run -it fortio -n cell-a --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H  "ab:true" http://cell-a-v1-svc/api/health-check
-  scaffold:
+  default:
     desc: "Scaffolds cluster, applying all needed infrastructure and manifests"
     cmds:
       - task: create-cluster
@@ -58,7 +58,7 @@ tasks:
     desc: "Recreates and scaffolds the cluster"
     cmds:
       - task: delete-cluster
-      - task: scaffold
+      - task: default
   pf-kiali:
     desc: "Port forwards Kiali on port 3000"
     cmd: "kubectl port-forward svc/kiali 3000:20001 -n istio-system"

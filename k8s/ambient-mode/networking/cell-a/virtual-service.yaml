@@ -19,7 +19,15 @@ spec:
         - destination:
             host: cell-a-v1-svc.cell-a.svc.cluster.local
           weight: 70
+      timeout: 10s
+      retries:
+        attempts: 2
+        perTryTimeout: 3s
     - name: v1
       route:
         - destination:
             host: cell-a-v1-svc.cell-a.svc.cluster.local
+      timeout: 10s
+      retries:
+        attempts: 2
+        perTryTimeout: 3s
