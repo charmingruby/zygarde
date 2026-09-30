@@ -11,3 +11,4 @@ resources:
   - v1-destination-rule.yaml
   - v2-destination-rule.yaml
   - virtual-service.yaml
+  - gateway.yaml

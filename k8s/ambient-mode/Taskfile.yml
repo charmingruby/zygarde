@@ -41,12 +41,9 @@ tasks:
   install-k8s-gateway-crds:
     desc: "Installs Kubernetes Gateway CRDs"
     cmd: kubectl get crd gateways.gateway.networking.k8s.io &> /dev/null || kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.6.0" | kubectl apply -f -
-  load-test:
-    desc: "Runs a simple load test on cells to check o11y on Kiali"
-    cmd: kubectl run -it fortio -n {{.CLI_ARGS}} --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H http://{{.CLI_ARGS}}-svc/api/health-check
-  ab-load-test:
-    desc: "Runs a simple A/B and load test on cells to check o11y on Kiali"
-    cmd: kubectl run -it fortio -n cell-a --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H  "ab:true" http://cell-a-v1-svc/api/health-check
+  # load-test:
+  #   desc: "Runs a simple A/B and load test on cells to check o11y on Kiali"
+  #   cmd: kubectl run -it fortio -n cell-a --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s -H "ab:true" http://cell-a-v1-svc/api/health-check
   default:
     desc: "Scaffolds cluster, applying all needed infrastructure and manifests"
     cmds:
@@ -62,3 +59,9 @@ tasks:
   pf-kiali:
     desc: "Port forwards Kiali on port 3000"
     cmd: "kubectl port-forward svc/kiali 3000:20001 -n istio-system"
+  pf-gw:
+    desc: "Port forwards Gateway on port 3001"
+    cmd: "kubectl port-forward svc/cell-a-gateway-istio 3001:80 -n cell-a"
+  load-test:
+    desc: "Runs a simple A/B and load test on cells to check o11y on Kiali"
+    cmd: kubectl run -it fortio -n cell-a --rm --image=fortio/fortio -- load -c 32 -qps 8000 -t 60s http://cell-a-gateway-istio/api/health-check
