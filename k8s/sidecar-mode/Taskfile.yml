@@ -22,9 +22,9 @@ tasks:
       - kubectl wait --for=condition=available deployment/prometheus -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/jaeger -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/kiali -n istio-system --timeout=120s
-  apply-apps:
-    desc: "Applies application manifests"
-    cmd: kubectl apply -k apps
+  apply-workloads:
+    desc: "Applies workloads manifests"
+    cmd: kubectl apply -k workloads
   apply-networking:
     desc: "Applies networking manifests"
     cmd: kubectl apply -k networking
@@ -33,7 +33,7 @@ tasks:
     cmds:
       - task: apply-ns
       - task: apply-infra
-      - task: apply-apps
+      - task: apply-workloads
       - task: apply-networking
   install-istio:
     desc: "Installs Istio to the current cluster"
