@@ -1,3 +1,4 @@
 # yaml-language-server: $schema=none
 resources:
+  - waypoint.yaml
   - cell-a
