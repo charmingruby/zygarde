@@ -14,3 +14,5 @@ spec:
       interval: 10s
       baseEjectionTime: 120s
       maxEjectionPercent: 100
+    tls:
+      mode: ISTIO_MUTUAL
