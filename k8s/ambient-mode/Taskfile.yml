@@ -22,6 +22,7 @@ tasks:
       - kubectl wait --for=condition=available deployment/prometheus -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/jaeger -n istio-system --timeout=120s
       - kubectl wait --for=condition=available deployment/kiali -n istio-system --timeout=120s
+      - kubectl wait --for=condition=available deployment/grafana -n istio-system --timeout=120s
   apply-workloads:
     desc: "Applies workloads manifests"
     cmd: kubectl apply -k workloads
@@ -57,6 +58,9 @@ tasks:
     cmds:
       - task: delete-cluster
       - task: default
+  pf-grafana:
+    desc: "Port forwards Grafana"
+    cmd: "kubectl port-forward svc/grafana 3000:3000 -n istio-system"
   pf-kiali:
-    desc: "Port forwards Kiali on port 3000"
-    cmd: "kubectl port-forward svc/kiali 3000:20001 -n istio-system"
+    desc: "Port forwards Kiali"
+    cmd: "kubectl port-forward svc/kiali 3001:20001 -n istio-system"

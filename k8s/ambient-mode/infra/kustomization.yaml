@@ -2,3 +2,4 @@ resources:
   - prometheus
   - jaeger
   - kiali
+  - grafana
